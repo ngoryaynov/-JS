@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+    crossorigin="anonymous" />
+  <style>
+    i {
+      font-size: 50px;
+    }
+
+    .golden {
+      color: gold;
+    }
+  </style>
+</head>
+
+<body>
+  <!--
+Обязательное задание.
+
+Выполнить все задачи в теге script. Комментарии, в которых написаны задачи, не
+стирать, код с решением задачи пишем под комментарием.
+-->
+
+  <div class="stars_container">
+    <i class="fas fa-star"></i>
+    <i class="fas fa-star"></i>
+    <i class="fas fa-star"></i>
+    <i class="fas fa-star"></i>
+    <i class="fas fa-star"></i>
+  </div>
+
+  <script>
+    "use strict";
+
+    /*
+    1. При наведении на любую из звезд, данной звезде должен ставиться класс
+    golden, также такой класс должен ставиться всем звездам до нее слева.
+    */
+
+    // сначала начал делать через цикл for внутри for  что-бы предыдущим 
+    // элементам установить класс, но не заработало(((  В общем и целом подсмотрел)
+    let starsCountrEl = document.querySelector(`.stars_container`);
+    starsCountrEl.addEventListener(`mouseover`, event => {
+      if (!event.target.classList.contains(`fa-star`)) {
+        return;
+      }
+      let goldS = event.target;
+      do {        // забыл про этот цикл
+        goldS.classList.add(`golden`);
+        goldS = goldS.previousElementSibling;
+      } while (goldS);
+
+    })
+
+    /*
+    2. Когда мы уводим курсор мыши от звезды, все поставленные классы из первого
+    задания должны быть удалены.
+     */
+
+    starsCountrEl.addEventListener(`mouseout`, event => {
+      if (!event.target.classList.contains(`fa-star`)) {
+        return;
+      }
+      let blackS = event.target;
+      do {
+        blackS.classList.remove(`golden`);
+        blackS = blackS.previousElementSibling;
+      } while (blackS);
+
+    })
+
+    /*
+    3. Когда мы переводим мышь от одной звезды к другой, у нас могут мигать
+    звезды (временно могут становиться черными). Почему так? Напишите словами.
+    Можем ли мы это исправить? Если да, то предложите решение.
+    */
+
+    // Т.к. тэг <i> - строка, у него имеются отступы. 
+    // если добавить тэгу <i> display: block то отступы должны уйти
+    // выставить по горизонтали общему диву задать display: flex
+
+    starsCountrEl.style.display = `flex`;
+    let iEls = document.querySelectorAll(`i`);
+    for (let i = 0; i < iEls.length; i++) {
+      iEls[i].style.display = `block`;
+    }
+
+    // желательно сделать сразу в css
+
+  </script>
+</body>
+
+</html>
